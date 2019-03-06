@@ -1,0 +1,5 @@
+"ID","CONSUMER","API_KEY","API_URL_PATH"
+"1","EWP","364decce-a373-4ecf-b320-8982a77d2ace","/mp/remote/v1/get-participant-money-pool,/mp/remote/v1/get-all-money-pool-list,/mp/remote/v1/deploy-to-prod,/mp/remote/v1/has-pending,/mp/remote/v1/is-need-clone,/mp/remote/v1/is-need-deploy"
+"2","APV","364decce-a373-4ecf-b320-8982a77d2ace","/mp/remote/v1/approval,/mp/remote/v1/reject,/mp/remote/v1/get-detail,/mp/remote/v1/get-approval-info,/mp/remote/v1/get-approval,/mp/remote/v1/get-request-approval,/mp/remote/v1/get-adjustment,/mp/remote/v1/save-deployment,/mp/remote/v1/get-deposit-cash-out"
+"3","DPY","364decce-a373-4ecf-b320-8982a77d2ace","/mp/remote/v1/synch-deployment"
+"4","ANA","364decce-a373-4ecf-b320-8982a77d2ace","/ord/remote/account/addSsoAccount,/ord/remote/v1/get-participant-list,/ord/remote/account/updateClientStatus"

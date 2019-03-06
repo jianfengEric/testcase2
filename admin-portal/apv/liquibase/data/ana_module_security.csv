@@ -1,0 +1,4 @@
+"ID","CONSUMER","API_KEY","API_URL_PATH"
+"1","MP","3474fdb1-3340-4791-b852-d1aaa2eb2c93","/mp/remote/v1/approval,/mp/remote/v1/get-detail"
+"2","APV","3474fdb1-3340-4791-b852-d1aaa2eb2c93","/mp/remote/v1/approval,/mp/remote/v1/get-detail"
+"3","ANA","3474fdb1-3340-4791-b852-d1aaa2eb2c93","/apv/remote/account/addSsoAccount,/apv/remote/account/updateClientStatus"
