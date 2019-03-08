@@ -2,8 +2,6 @@ package com.gea.portal.srv.reporter.config;
 
 import com.vimalselvam.testng.SystemInfo;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -16,14 +14,14 @@ import java.util.Properties;
 public class MySystemInfo implements SystemInfo {
     @Override
     public Map<String, String> getSystemInfo() {
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("env.properties");
+        /*InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("env.properties");*/
         Properties properties = new Properties();
         Map<String, String> systemInfo = new HashMap<>();
         try {
-            properties.load(inputStream);
-            systemInfo.put("environment", properties.getProperty("Environment"));
+            /*properties.load(inputStream);*/
+            systemInfo.put("environment", "Environment");
             systemInfo.put("测试人员", "jxq");
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return systemInfo;
