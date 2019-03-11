@@ -66,10 +66,7 @@ public class SearchTagsTest extends AbstractTestNGSpringContextTests {
 
     @Test(dataProvider="pageData")
     public void testGetServiceAssignment(Map<String, String> data) throws IOException {
-        Integer pageNo = Integer.valueOf(data.get("pageNo"));
-        Integer pageSize = 10;
         String instance=data.get("instance");
-        String isAscending=data.get("isAscending");
         RestfulResponse<ServiceAssignmentDto> restResponse= ewalletParticipantService.getServiceAssignment(data.get("participantId"), Instance.valueOf(instance) == null ? Instance.PRE_PROD : Instance.valueOf(instance));
         Assert.assertNotNull(restResponse, "response");
 //        再Json化成对象
