@@ -1,7 +1,7 @@
 package com.gea.portal.ewp.tools;
 
 import com.alibaba.fastjson.JSONObject;
-import com.gea.portal.ewp.douban.domain.MovieResponseVO;
+import com.tng.portal.common.vo.rest.RestfulResponse;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
@@ -25,11 +25,11 @@ public class RespVoConverterFactory extends Converter.Factory {
         return new RespVoConverter();
     }
 
-    public class RespVoConverter implements Converter<ResponseBody, MovieResponseVO> {
+    public class RespVoConverter implements Converter<ResponseBody, RestfulResponse> {
         @Override
-        public MovieResponseVO convert(ResponseBody value) throws IOException {
+        public RestfulResponse convert(ResponseBody value) throws IOException {
             String temp = value.string();
-            return JSONObject.parseObject(temp, MovieResponseVO.class);
+            return JSONObject.parseObject(temp, RestfulResponse.class);
         }
     }
 

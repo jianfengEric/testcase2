@@ -1,6 +1,6 @@
 package com.test.testcase;
 
-import com.gea.portal.srv.douban.domain.MovieResponseVO;
+import com.tng.portal.common.vo.rest.RestfulResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -24,24 +24,23 @@ public class SearchTagsTest {
 
     @Test(description = "test1-get-service-base-markup")
     public void testcase1() throws IOException {
-        MovieResponseVO body=new MovieResponseVO();
+        RestfulResponse body=new RestfulResponse();
         List<String> tags=new ArrayList<>();
         tags.add("test1");
         tags.add("test2");
-        body.setTags(tags);
         Assert.assertNotNull(body, "response");
 //        再Json化成对象
-        Assert.assertNotNull(body.getTags(), "tags");
+        Assert.assertNotNull(body, "response");
     }
 
     @Test(description = "test2-check-edit")
     public void testcase2() throws IOException {
-        MovieResponseVO body=new MovieResponseVO();
+        RestfulResponse body=new RestfulResponse();
         List<String> tags=new ArrayList<>();
-        tags.add("test3");
-        tags.add("test4");
-        body.setTags(tags);
-        Assert.assertNotNull(body, "body()");
-        Assert.assertNotNull(body.getTags(), "tags");
+        tags.add("test1");
+        tags.add("test2");
+        Assert.assertNotNull(body, "response");
+//        再Json化成对象
+        Assert.assertNotNull(body, "response");
     }
 }
