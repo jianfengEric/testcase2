@@ -1,7 +1,5 @@
 package com.gea.portal.ewp.testUtils;
 
-import com.tng.portal.common.util.PropertiesUtil;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -30,14 +28,14 @@ public class CsvUtils implements Iterator<Object[]> {
      * @param fileName 文件名
      * @throws IOException
      */
-    public CsvUtils(String fileName) throws IOException {
+    public CsvUtils(String fileName,String path) throws IOException {
         File directory=new File(".");
-        String path;//默认文件路径
+        /*String path;//默认文件路径
         if("dev".equals(PropertiesUtil.getPropertyValueByKey("current.environment"))){
             path=".src.main.java.com.gea.portal.ewp.testData.devTestData.";
         }else{
             path=".src.main.java.com.gea.portal.ewp.testData.sitTestData.";
-        }
+        }*/
         String absolutePath=directory.getCanonicalPath()+path.replaceAll("\\.", Matcher.quoteReplacement("\\"))+fileName;
         System.out.println(absolutePath);   //打印路径
         File csv=new File(absolutePath);

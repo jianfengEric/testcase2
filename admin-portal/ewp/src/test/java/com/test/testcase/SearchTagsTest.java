@@ -18,6 +18,7 @@ import com.tng.portal.common.vo.PageDatas;
 import com.tng.portal.common.vo.rest.RestfulResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -49,14 +50,19 @@ public class SearchTagsTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private UserService userService;
 
+    @Value("${current.environment}")
+    private String currentEnvironment;
+
     @DataProvider(name="pageData")
     public Iterator<Object[]> pageData() throws IOException {
-        return (Iterator<Object[]>)new CsvUtils("pageData.csv");
+        String path=".src.main.java.com.gea.portal.ewp.testData."+currentEnvironment+"TestData.";
+        return (Iterator<Object[]>)new CsvUtils("pageData.csv",path);
     }
 
     @DataProvider(name="participantData")
     public Iterator<Object[]> participantData() throws IOException {
-        return (Iterator<Object[]>)new CsvUtils("participantData.csv");
+        String path=".src.main.java.com.gea.portal.ewp.testData."+currentEnvironment+"TestData.";
+        return (Iterator<Object[]>)new CsvUtils("participantData.csv",path);
     }
 
     @Test(dataProvider="pageData")
