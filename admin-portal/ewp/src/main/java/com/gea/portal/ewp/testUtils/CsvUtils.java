@@ -34,9 +34,9 @@ public class CsvUtils implements Iterator<Object[]> {
         File directory=new File(".");
         String path;//默认文件路径
         if("dev".equals(PropertiesUtil.getPropertyValueByKey("current.environment"))){
-            path=".src.main.java.com.gea.portal.ewp.devTestData.";
+            path=".src.main.java.com.gea.portal.ewp.testData.devTestData.";
         }else{
-            path=".src.main.java.com.gea.portal.ewp.sitTestData.";
+            path=".src.main.java.com.gea.portal.ewp.testData.sitTestData.";
         }
         String absolutePath=directory.getCanonicalPath()+path.replaceAll("\\.", Matcher.quoteReplacement("\\"))+fileName;
         System.out.println(absolutePath);   //打印路径
