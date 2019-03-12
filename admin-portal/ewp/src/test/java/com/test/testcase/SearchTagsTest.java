@@ -4,6 +4,10 @@ import com.gea.portal.ewp.Application;
 import com.gea.portal.ewp.service.EwalletParticipantService;
 import com.gea.portal.ewp.service.MpCallerService;
 import com.gea.portal.ewp.testUtils.CsvUtils;
+import com.tng.portal.ana.authentication.AnaPrincipalAuthenticationToken;
+import com.tng.portal.ana.bean.UserDetails;
+import com.tng.portal.ana.service.TokenService;
+import com.tng.portal.ana.service.UserService;
 import com.tng.portal.common.dto.ewp.*;
 import com.tng.portal.common.dto.mp.MoneyPoolListDto;
 import com.tng.portal.common.enumeration.ApprovalType;
@@ -13,7 +17,9 @@ import com.tng.portal.common.enumeration.RequestApprovalStatus;
 import com.tng.portal.common.vo.PageDatas;
 import com.tng.portal.common.vo.rest.RestfulResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -34,17 +40,14 @@ public class SearchTagsTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private MpCallerService mpCallerService;
 
-    /*@BeforeSuite
-    public void beforeSuite() throws IOException {
-        InputStream stream = this.getClass().getClassLoader().getResourceAsStream("env.properties");
-        properties = new Properties();
-        properties.load(stream);
-        String host = properties.getProperty("douban.host");
-        stream = this.getClass().getClassLoader().getResourceAsStream("parameters/search/SearchTagsParams.properties");
-        properties.load(stream);
-        stream = this.getClass().getClassLoader().getResourceAsStream("");
-        stream.close();
-    }*/
+
+    @Qualifier("tokenServiceImpl")
+    @Autowired
+    private TokenService tokenServiceImpl;
+
+    @Qualifier("anaUserService")
+    @Autowired
+    private UserService userService;
 
     @DataProvider(name="pageData")
     public Iterator<Object[]> pageData() throws IOException {
@@ -58,6 +61,13 @@ public class SearchTagsTest extends AbstractTestNGSpringContextTests {
 
     @Test(dataProvider="pageData")
     public void testListParticipant(Map<String, String> data) throws IOException {
+        String token=data.get("token");
+        UserDetails userDetails = userService.getUserDetailByToken(token);
+        if(null!=userDetails){
+            AnaPrincipalAuthenticationToken authentication = new AnaPrincipalAuthenticationToken(userDetails,token,"");
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+
         RestfulResponse<PageDatas<ParticipantDto>> restResponse = new RestfulResponse<>();
         Integer pageNo = Integer.valueOf(data.get("pageNo"));
         Integer pageSize = 10;
