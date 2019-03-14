@@ -6,7 +6,7 @@
 
     <test name="测试分类接口" preserve-order="true">
         <classes>
-            <class name="com.test.testcase.SearchTagsTest"/>
+            <class name="com.test.testcase.ParticipantControllerTest"/>
             <class name="com.test.testcase.CountryControllerTest"/>
         </classes>
     </test>

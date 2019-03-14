@@ -5,7 +5,7 @@
     <parameter name="system.info" value="com.gea.portal.ewp.reporter.config.MySystemInfo"/>
 
     <suite-files>
-        <suite-file path="search/SearchTags-TestSuite.xml"/>
+        <suite-file path="search/Ewp-TestSuite.xml"/>
     </suite-files>
 
     <listeners>

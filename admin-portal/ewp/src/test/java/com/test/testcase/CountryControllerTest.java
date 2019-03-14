@@ -25,7 +25,5 @@ public class CountryControllerTest extends AbstractTestNGSpringContextTests {
         List<CountryDto> list = countryService.findAll();
         RestfulResponse.ofData(list);
         Assert.assertNotNull(list, "response");
-//        再Json化成对象
-        Assert.assertNotNull(list, "response");
     }
 }

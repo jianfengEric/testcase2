@@ -6,7 +6,6 @@ import com.gea.portal.ewp.service.MpCallerService;
 import com.gea.portal.ewp.testUtils.CsvUtils;
 import com.tng.portal.ana.authentication.AnaPrincipalAuthenticationToken;
 import com.tng.portal.ana.bean.UserDetails;
-import com.tng.portal.ana.service.TokenService;
 import com.tng.portal.ana.service.UserService;
 import com.tng.portal.common.dto.ewp.*;
 import com.tng.portal.common.dto.mp.MoneyPoolListDto;
@@ -33,18 +32,13 @@ import java.util.stream.Stream;
 
 
 @SpringBootTest(classes = { Application.class })
-public class SearchTagsTest extends AbstractTestNGSpringContextTests {
+public class ParticipantControllerTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private EwalletParticipantService ewalletParticipantService;
 
     @Autowired
     private MpCallerService mpCallerService;
-
-
-    @Qualifier("tokenServiceImpl")
-    @Autowired
-    private TokenService tokenServiceImpl;
 
     @Qualifier("anaUserService")
     @Autowired
@@ -89,8 +83,6 @@ public class SearchTagsTest extends AbstractTestNGSpringContextTests {
         restResponse.setData(pageData);
         restResponse.setSuccessStatus();
         Assert.assertNotNull(restResponse, "response");
-//        再Json化成对象
-        Assert.assertNotNull(restResponse, "response");
     }
 
     @Test(dataProvider="fullCompanyInformationData")
@@ -105,8 +97,6 @@ public class SearchTagsTest extends AbstractTestNGSpringContextTests {
         FullCompanyInformationDto postDto=new FullCompanyInformationDto();
         postDto=getPostDtoData(postDto,data);
         RestfulResponse<String> restResponse=ewalletParticipantService.createFullCompanyInformation(postDto);
-        Assert.assertNotNull(restResponse, "response");
-//        再Json化成对象
         Assert.assertNotNull(restResponse, "response");
     }
 
@@ -172,8 +162,6 @@ public class SearchTagsTest extends AbstractTestNGSpringContextTests {
         String instance=data.get("instance");
         RestfulResponse<ServiceAssignmentDto> restResponse= ewalletParticipantService.getServiceAssignment(data.get("participantId"), Instance.valueOf(instance) == null ? Instance.PRE_PROD : Instance.valueOf(instance));
         Assert.assertNotNull(restResponse, "response");
-//        再Json化成对象
-        Assert.assertNotNull(restResponse, "response");
     }
 
     @Test(dataProvider="participantData")
@@ -182,15 +170,11 @@ public class SearchTagsTest extends AbstractTestNGSpringContextTests {
         List<ParticipantDto> participantDtoList = ewalletParticipantService.getParticipantByNameOrIdList(data.get("geaParticipantRefId"), data.get("participantName"),data.get("serviceId"), Instance.valueOf(data.get("instance")));
         restfulResponse.setData(participantDtoList);
         Assert.assertNotNull(restfulResponse, "response");
-//        再Json化成对象
-        Assert.assertNotNull(restfulResponse, "response");
     }
 
     @Test(dataProvider="pageData")
     public void testCheckEdit(Map<String, String> data) throws IOException {
         Integer restfulResponse = ewalletParticipantService.checkEdit(data.get("participantId"), Instance.valueOf(data.get("instance")),data.get("type"));
-        Assert.assertNotNull(restfulResponse, "response");
-//        再Json化成对象
         Assert.assertNotNull(restfulResponse, "response");
     }
 
@@ -198,15 +182,11 @@ public class SearchTagsTest extends AbstractTestNGSpringContextTests {
     public void testGetAllMoneyPoolList(Map<String, String> data) throws IOException {
         List<MoneyPoolListDto> list =mpCallerService.callGetAllMoneyPoolList(data.get("geaParticipantRefId"), Instance.valueOf(data.get("instance"))).getData();
         Assert.assertNotNull(list, "response");
-//        再Json化成对象
-        Assert.assertNotNull(list, "response");
     }
 
     @Test(dataProvider="pageData")
     public void testGetFullCompanyInfomation(Map<String, String> data) throws IOException {
         RestfulResponse<FullCompanyInfoDto> response=ewalletParticipantService.getFullCompanyInfomation(data.get("participantId"), Instance.valueOf(data.get("instance")) == null ? Instance.PRE_PROD : Instance.valueOf(data.get("instance")));
-        Assert.assertNotNull(response, "response");
-//        再Json化成对象
         Assert.assertNotNull(response, "response");
     }
 
@@ -214,23 +194,17 @@ public class SearchTagsTest extends AbstractTestNGSpringContextTests {
     public void testGetGatewaySetting(Map<String, String> data) throws IOException {
         RestfulResponse<GatewaySettingDto> response=ewalletParticipantService.getGatewaySetting(data.get("participantId"), Instance.valueOf(data.get("instance"))  == null ? Instance.PRE_PROD : Instance.valueOf(data.get("instance")) );
         Assert.assertNotNull(response, "response");
-//        再Json化成对象
-        Assert.assertNotNull(response, "response");
     }
 
     @Test(dataProvider="pageData")
     public void testGetServiceSetting(Map<String, String> data) throws IOException {
         RestfulResponse<ServiceSettingRequestDto> response=ewalletParticipantService.getServiceSetting(data.get("participantId"), Instance.valueOf(data.get("instance")) == null ? Instance.PRE_PROD : Instance.valueOf(data.get("instance")));
         Assert.assertNotNull(response, "response");
-//        再Json化成对象
-        Assert.assertNotNull(response, "response");
     }
 
     @Test(dataProvider="pageData")
     public void testGetCutOffTime(Map<String, String> data) throws IOException {
         RestfulResponse<CutOffTimeDto> response=ewalletParticipantService.getCutOffTime(data.get("participantId"), Instance.valueOf(data.get("instance")) == null ? Instance.PRE_PROD : Instance.valueOf(data.get("instance")));
-        Assert.assertNotNull(response, "response");
-//        再Json化成对象
         Assert.assertNotNull(response, "response");
     }
 
@@ -246,8 +220,6 @@ public class SearchTagsTest extends AbstractTestNGSpringContextTests {
         }
         restfulResponse.setData(list);
         Assert.assertNotNull(restfulResponse, "response");
-//        再Json化成对象
-        Assert.assertNotNull(restfulResponse, "response");
     }
 
     @Test(dataProvider="pageData")
@@ -259,8 +231,6 @@ public class SearchTagsTest extends AbstractTestNGSpringContextTests {
         }
         restfulResponse.setData(list);
         Assert.assertNotNull(restfulResponse, "response");
-//        再Json化成对象
-        Assert.assertNotNull(restfulResponse, "response");
     }
 
     @Test(description = "gen-api-gateway-key")
@@ -269,8 +239,6 @@ public class SearchTagsTest extends AbstractTestNGSpringContextTests {
         String key = UUID.randomUUID().toString();
         restfulResponse.setData(key);
         Assert.assertNotNull(restfulResponse, "response");
-//        再Json化成对象
-        Assert.assertNotNull(restfulResponse, "response");
     }
 
 
@@ -278,9 +246,5 @@ public class SearchTagsTest extends AbstractTestNGSpringContextTests {
     public void testIsCompleteData(Map<String, String> data) throws IOException {
         Map<ApprovalType,Boolean> map =  ewalletParticipantService.isCompleteData(Long.valueOf(data.get("participantId")), Instance.valueOf(data.get("instance")),null);
         Assert.assertNotNull(map, "response");
-//        再Json化成对象
-        Assert.assertNotNull(map, "response");
     }
-
-
 }
