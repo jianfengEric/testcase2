@@ -211,7 +211,7 @@
 
     </dependencies>
 
-    <!-- <profiles>
+     <profiles>
         <profile>
             <id>local</id>
             <activation>
@@ -264,7 +264,7 @@
                 <skipunittest>false</skipunittest>
             </properties>
         </profile>
-    </profiles> -->
+    </profiles>
 
     <build>
         <finalName>ewp</finalName>
