@@ -299,12 +299,13 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
-                 <includes>
-                    <include>**/application-${env}.properties</include>
-                     <include>**/*.xml</include>
-                </includes>
             </resource>
         </resources>
+
+        <filters>
+            <filter>src/main/resources/application-${env}.properties</filter>
+        </filters>
+
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
