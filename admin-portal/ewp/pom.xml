@@ -298,13 +298,17 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <filtering>true</filtering>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/application-${env}.properties</include>
+                    <include>**/logback.xml</include>
+                </includes>
             </resource>
         </resources>
 
-        <filters>
+        <!--<filters>
             <filter>src/main/resources/application-${env}.properties</filter>
-        </filters>
+        </filters>-->
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
