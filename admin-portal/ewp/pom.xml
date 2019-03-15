@@ -266,6 +266,36 @@
         </profile>
     </profiles>-->
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources.testdev</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+        <profile>
+            <id>sit</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources.testsit</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
+
+
     <build>
         <finalName>ewp</finalName>
         <!-- <filters>
@@ -295,20 +325,6 @@
                 </excludes>
             </resource>
         </resources> -->
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-
-        <filters>
-            <filter>src/main/filters/test-${env}.properties</filter>
-        </filters>
-
-        <!--<filters>
-            <filter>src/main/resources/application-${env}.properties</filter>
-        </filters>-->
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
@@ -377,25 +393,5 @@
         </plugins>
     </build>
 
-    <profiles>
-        <!-- 开发环境，默认激活 -->
-        <profile>
-            <id>dev</id>
-            <properties>
-                <env>dev</env>
-            </properties>
-
-        </profile>
-
-        <!-- 生产环境 -->
-        <profile>
-            <id>sit</id>
-            <properties>
-                <env>sit</env>
-            </properties>
-
-        </profile>
-
-    </profiles>
 
 </project>
