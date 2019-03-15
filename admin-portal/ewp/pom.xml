@@ -211,8 +211,8 @@
 
     </dependencies>
 
-    <!-- <profiles>
-        &lt;!&ndash;<profile>
+     <!--<profiles>
+        <profile>
             <id>local</id>
             <activation>
             	<activeByDefault>true</activeByDefault>
@@ -221,7 +221,7 @@
                 <env>local</env>
                 <skipunittest>false</skipunittest>
             </properties>
-        </profile>&ndash;&gt;
+        </profile>
         <profile>
             <id>dev</id>
             <properties>
@@ -305,7 +305,6 @@
         <filters>
             <filter>src/main/resources/application-${env}.properties</filter>
         </filters>
-
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
@@ -375,20 +374,22 @@
     </build>
 
     <profiles>
-
+        <!-- 开发环境，默认激活 -->
         <profile>
             <id>dev</id>
             <properties>
                 <env>dev</env>
             </properties>
+
         </profile>
 
-
+        <!-- 生产环境 -->
         <profile>
             <id>sit</id>
             <properties>
                 <env>sit</env>
             </properties>
+
         </profile>
 
     </profiles>
