@@ -211,7 +211,7 @@
 
     </dependencies>
 
-     <!--<profiles>
+     <profiles>
         <profile>
             <id>local</id>
             <activation>
@@ -264,7 +264,7 @@
                 <skipunittest>false</skipunittest>
             </properties>
         </profile>
-    </profiles>-->
+    </profiles>
 
     <build>
         <finalName>ewp</finalName>
@@ -295,6 +295,15 @@
                 </excludes>
             </resource>
         </resources> -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                 <includes>
+                    <include>**/application-${env}.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
