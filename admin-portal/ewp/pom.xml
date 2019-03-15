@@ -211,8 +211,8 @@
 
     </dependencies>
 
-     <profiles>
-        <!--<profile>
+    <!-- <profiles>
+        &lt;!&ndash;<profile>
             <id>local</id>
             <activation>
             	<activeByDefault>true</activeByDefault>
@@ -221,7 +221,7 @@
                 <env>local</env>
                 <skipunittest>false</skipunittest>
             </properties>
-        </profile>-->
+        </profile>&ndash;&gt;
         <profile>
             <id>dev</id>
             <properties>
@@ -264,7 +264,7 @@
                 <skipunittest>false</skipunittest>
             </properties>
         </profile>
-    </profiles>
+    </profiles>-->
 
     <build>
         <finalName>ewp</finalName>
@@ -374,5 +374,23 @@
         </plugins>
     </build>
 
+    <profiles>
+
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+            </properties>
+        </profile>
+
+
+        <profile>
+            <id>sit</id>
+            <properties>
+                <env>sit</env>
+            </properties>
+        </profile>
+
+    </profiles>
 
 </project>
