@@ -303,7 +303,7 @@
         </resources>
 
         <filters>
-            <filter>src/main/filter/test-${env}.properties</filter>
+            <filter>src/main/filters/test-${env}.properties</filter>
         </filters>
 
         <!--<filters>
