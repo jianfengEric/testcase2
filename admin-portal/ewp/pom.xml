@@ -212,7 +212,7 @@
     </dependencies>
 
      <profiles>
-        <profile>
+        <!--<profile>
             <id>local</id>
             <activation>
             	<activeByDefault>true</activeByDefault>
@@ -221,7 +221,7 @@
                 <env>local</env>
                 <skipunittest>false</skipunittest>
             </properties>
-        </profile>
+        </profile>-->
         <profile>
             <id>dev</id>
             <properties>
