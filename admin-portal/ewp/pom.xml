@@ -300,6 +300,7 @@
                 <directory>src/main/resources</directory>
                  <includes>
                     <include>**/application-${env}.properties</include>
+                     <include>**/*.xml</include>
                 </includes>
                 <filtering>true</filtering>
             </resource>
