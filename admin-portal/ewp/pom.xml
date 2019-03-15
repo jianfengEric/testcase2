@@ -301,7 +301,7 @@
                 <filtering>false</filtering>
                 <includes>
                     <include>**/application-${env}.properties</include>
-                    <include>**/logback.xml</include>
+                    <include>**/*.xml</include>
                 </includes>
             </resource>
         </resources>
