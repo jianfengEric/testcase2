@@ -274,9 +274,6 @@
                     <resource>
                         <directory>src/main/resources.testdev</directory>
                     </resource>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                    </resource>
                 </resources>
             </build>
         </profile>
@@ -286,9 +283,6 @@
                 <resources>
                     <resource>
                         <directory>src/main/resources.testsit</directory>
-                    </resource>
-                    <resource>
-                        <directory>src/main/resources</directory>
                     </resource>
                 </resources>
             </build>
