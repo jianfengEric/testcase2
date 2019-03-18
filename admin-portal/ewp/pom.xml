@@ -211,7 +211,7 @@
 
     </dependencies>
 
-     <!--<profiles>
+     <profiles>
         <profile>
             <id>local</id>
             <activation>
@@ -264,9 +264,30 @@
                 <skipunittest>false</skipunittest>
             </properties>
         </profile>
-    </profiles>-->
 
-    <profiles>
+         <profile>
+             <id>testdev</id>
+             <build>
+                 <resources>
+                     <resource>
+                         <directory>src/main/resources.testdev</directory>
+                     </resource>
+                 </resources>
+             </build>
+         </profile>
+         <profile>
+             <id>testsit</id>
+             <build>
+                 <resources>
+                     <resource>
+                         <directory>src/main/resources.testsit</directory>
+                     </resource>
+                 </resources>
+             </build>
+         </profile>
+    </profiles>
+
+    <!--<profiles>
         <profile>
             <id>testdev</id>
             <build>
@@ -288,7 +309,7 @@
             </build>
         </profile>
     </profiles>
-
+-->
 
     <build>
         <finalName>ewp</finalName>
