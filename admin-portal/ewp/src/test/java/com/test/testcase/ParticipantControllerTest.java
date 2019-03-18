@@ -3,7 +3,7 @@ package com.test.testcase;
 import com.gea.portal.ewp.Application;
 import com.gea.portal.ewp.service.EwalletParticipantService;
 import com.gea.portal.ewp.service.MpCallerService;
-import com.gea.portal.ewp.testUtils.CsvUtils;
+import com.tng.portal.common.testUtils.CsvUtils;
 import com.tng.portal.ana.authentication.AnaPrincipalAuthenticationToken;
 import com.tng.portal.ana.bean.UserDetails;
 import com.tng.portal.ana.service.UserService;
@@ -49,13 +49,13 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
 
     @DataProvider(name="pageData")
     public Iterator<Object[]> pageData() throws IOException {
-        String path=".src.main.java.com.gea.portal.ewp.testData."+currentEnvironment+"TestData.";
+        String path=".testData."+currentEnvironment+"TestData.";
         return (Iterator<Object[]>)new CsvUtils("pageData.csv",path);
     }
 
     @DataProvider(name="participantData")
     public Iterator<Object[]> participantData() throws IOException {
-        String path=".src.main.java.com.gea.portal.ewp.testData."+currentEnvironment+"TestData.";
+        String path=".testData."+currentEnvironment+"TestData.";
         return (Iterator<Object[]>)new CsvUtils("participantData.csv",path);
     }
 

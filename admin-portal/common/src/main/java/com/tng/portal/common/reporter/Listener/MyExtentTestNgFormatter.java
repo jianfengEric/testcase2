@@ -1,4 +1,4 @@
-package com.gea.portal.ewp.reporter.Listener;
+package com.tng.portal.common.reporter.Listener;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;

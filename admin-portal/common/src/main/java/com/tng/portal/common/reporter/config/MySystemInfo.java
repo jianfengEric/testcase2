@@ -1,4 +1,4 @@
-package com.gea.portal.ewp.reporter.config;
+package com.tng.portal.common.reporter.config;
 
 import com.vimalselvam.testng.SystemInfo;
 

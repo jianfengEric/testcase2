@@ -1,4 +1,4 @@
-package com.gea.portal.ewp.testUtils;
+package com.tng.portal.common.testUtils;
 
 import java.io.BufferedReader;
 import java.io.File;

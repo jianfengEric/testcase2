@@ -2,7 +2,7 @@
 
 <suite name="search_tags-测试集合" verbose="1" preserve-order="true">
     <parameter name="report.config" value="src/main/resources.testdev/config/report/extent-config.xml"/>
-    <parameter name="system.info" value="com.gea.portal.ewp.reporter.config.MySystemInfo"/>
+    <parameter name="system.info" value="com.tng.portal.common.reporter.config.MySystemInfo"/>
 
     <test name="测试分类接口" preserve-order="true">
         <classes>
@@ -12,6 +12,6 @@
     </test>
 
     <listeners>
-        <listener class-name="com.gea.portal.ewp.reporter.Listener.MyExtentTestNgFormatter"/>
+        <listener class-name="com.tng.portal.common.reporter.Listener.MyExtentTestNgFormatter"/>
     </listeners>
 </suite>
