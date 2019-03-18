@@ -61,7 +61,7 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
 
     @DataProvider(name="fullCompanyInformationData")
     public Iterator<Object[]> fullCompanyInformationDto() throws IOException {
-        String path=".src.main.java.com.gea.portal.ewp.testData."+currentEnvironment+"TestData.";
+        String path=".testData."+currentEnvironment+"TestData.";
         return (Iterator<Object[]>)new CsvUtils("fullCompanyInformationData.csv",path);
     }
 
