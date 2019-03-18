@@ -268,7 +268,7 @@
 
     <profiles>
         <profile>
-            <id>dev</id>
+            <id>testdev</id>
             <build>
                 <resources>
                     <resource>
@@ -278,7 +278,7 @@
             </build>
         </profile>
         <profile>
-            <id>sit</id>
+            <id>testsit</id>
             <build>
                 <resources>
                     <resource>
