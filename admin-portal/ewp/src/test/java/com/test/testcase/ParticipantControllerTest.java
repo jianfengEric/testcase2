@@ -153,6 +153,7 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
         postDto.setParticipantName(data.get("participantName"));
         postDto.setRequestRemark(data.get("requestRemark"));
         postDto.setRegistrationNo(data.get("registrationNo"));
+        postDto.setCurrentEnvir("PRE_PROD");
         //
         List<DisputeContactDto> disputeContactDtoList=new ArrayList<>();
         DisputeContactDto disputeContactDto=new DisputeContactDto();
