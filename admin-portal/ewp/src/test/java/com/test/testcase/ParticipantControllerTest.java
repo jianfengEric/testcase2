@@ -313,14 +313,14 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
     }
 
     @Test(description = "update-api-gateway-setting")
-    public void testUpdateApiGatewaySetting(Map<String, String> data) throws IOException {
+    public void testUpdateApiGatewaySetting() throws IOException {
         ApiGatewaySettingDto postDto=new ApiGatewaySettingDto();
-        postDto=getApiGatewaySettingDto(postDto,data);
+        postDto=getApiGatewaySettingDto(postDto);
         RestfulResponse<String> response=ewalletParticipantService.updateApiGatewaySetting(postDto);;
         Assert.assertNotNull(response, "response");
     }
 
-    private ApiGatewaySettingDto getApiGatewaySettingDto(ApiGatewaySettingDto postDto, Map<String, String> data) {
+    private ApiGatewaySettingDto getApiGatewaySettingDto(ApiGatewaySettingDto postDto) {
         postDto.setApiGatewayUrl("dfgdfgdfgdf");
         postDto.setCreateBy("402881616975b5b3016994113cdb0007");
         postDto.setCreateDate(new Date());
