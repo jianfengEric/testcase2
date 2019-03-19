@@ -3,29 +3,35 @@ package com.test.testcase;
 import com.gea.portal.ewp.Application;
 import com.gea.portal.ewp.service.EwalletParticipantService;
 import com.gea.portal.ewp.service.MpCallerService;
-import com.tng.portal.common.testUtils.CsvUtils;
 import com.tng.portal.ana.authentication.AnaPrincipalAuthenticationToken;
 import com.tng.portal.ana.bean.UserDetails;
+import com.tng.portal.ana.constant.SystemMsg;
 import com.tng.portal.ana.service.UserService;
 import com.tng.portal.common.dto.ewp.*;
 import com.tng.portal.common.dto.mp.MoneyPoolListDto;
-import com.tng.portal.common.enumeration.ApprovalType;
-import com.tng.portal.common.enumeration.Instance;
-import com.tng.portal.common.enumeration.ParticipantStatus;
-import com.tng.portal.common.enumeration.RequestApprovalStatus;
+import com.tng.portal.common.enumeration.*;
+import com.tng.portal.common.exception.BusinessException;
+import com.tng.portal.common.testUtils.CsvUtils;
 import com.tng.portal.common.vo.PageDatas;
 import com.tng.portal.common.vo.rest.RestfulResponse;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.web.multipart.MultipartFile;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -47,6 +53,12 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
     @Value("${current.environment}")
     private String currentEnvironment;
 
+    @Value("${file.size}")
+    private String fileSize;
+
+    @Value("${material.dir}")
+    private String materialDir;
+
     @DataProvider(name="pageData")
     public Iterator<Object[]> pageData() throws IOException {
         String path=".testData."+currentEnvironment+"TestData.";
@@ -63,6 +75,18 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
     public Iterator<Object[]> fullCompanyInformationDto() throws IOException {
         String path=".testData."+currentEnvironment+"TestData.";
         return (Iterator<Object[]>)new CsvUtils("fullCompanyInformationData.csv",path);
+    }
+
+    @DataProvider(name="statusChangeDtoData")
+    public Iterator<Object[]> statusChangeDtoData() throws IOException {
+        String path=".testData."+currentEnvironment+"TestData.";
+        return (Iterator<Object[]>)new CsvUtils("statusChangeDtoData.csv",path);
+    }
+
+    @DataProvider(name="fileData")
+    public Iterator<Object[]> fileData() throws IOException {
+        String path=".testData."+currentEnvironment+"TestData.";
+        return (Iterator<Object[]>)new CsvUtils("fileData.csv",path);
     }
 
     @Test(dataProvider="pageData")
@@ -246,5 +270,339 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
     public void testIsCompleteData(Map<String, String> data) throws IOException {
         Map<ApprovalType,Boolean> map =  ewalletParticipantService.isCompleteData(Long.valueOf(data.get("participantId")), Instance.valueOf(data.get("instance")),null);
         Assert.assertNotNull(map, "response");
+    }
+
+    @Test(dataProvider="statusChangeDtoData")
+    public void testUploadParticipantStatus(Map<String, String> data) throws IOException {
+        Map<String,Object> map = new HashMap<>();
+        StatusChangeDto statusChangeDto=new StatusChangeDto();
+        statusChangeDto=getStatusChangeDto(statusChangeDto,data);
+        Long res = ewalletParticipantService.updateParticipantStatus(statusChangeDto);
+        map.put("id", res);
+        Assert.assertNotNull(map, "response");
+    }
+
+    private StatusChangeDto getStatusChangeDto(StatusChangeDto statusChangeDto, Map<String, String> data) {
+        statusChangeDto.setParticipantId(data.get("participantId"));
+        statusChangeDto.setChangeReason(data.get("changeReason"));
+        statusChangeDto.setCurrentEnvir(data.get("currentEnvir"));
+        statusChangeDto.setFromStatus(data.get("fromStatus"));
+        statusChangeDto.setRequestRemark(data.get("requestRemark"));
+        statusChangeDto.setStatus(data.get("status"));
+        statusChangeDto.setToStatus(data.get("toStatus"));
+        return statusChangeDto;
+    }
+
+    @Test(dataProvider="statusChangeDtoData")
+    public void testUpdateApiGatewaySetting(Map<String, String> data) throws IOException {
+        ApiGatewaySettingDto postDto=new ApiGatewaySettingDto();
+        postDto=getApiGatewaySettingDto(postDto,data);
+        RestfulResponse<String> response=ewalletParticipantService.updateApiGatewaySetting(postDto);;
+        Assert.assertNotNull(response, "response");
+    }
+
+    private ApiGatewaySettingDto getApiGatewaySettingDto(ApiGatewaySettingDto postDto, Map<String, String> data) {
+        postDto.setApiGatewayUrl("dfgdfgdfgdf");
+        postDto.setCreateBy("402881616975b5b3016994113cdb0007");
+        postDto.setCreateDate(new Date());
+        postDto.setInstance("PRE_PROD");
+        postDto.setEndpointsHealthSensitive(true);
+        postDto.setEndpointsInfoSensitive(true);
+        postDto.setEndpointsRestartEnable(true);
+        postDto.setId(Long.valueOf(1));
+        postDto.setMgtContextPath("/healthcheck");
+        postDto.setMgtHealthRefreshEnable(true);
+        postDto.setMgtSecurityEnable(true);
+        postDto.setParticipantId(Long.valueOf(1));
+        postDto.setRequestRemark("dfgdfg");
+        postDto.setSecurityBasicEnable(true);
+        postDto.setSecurityBasicPath("/healthcheck/**,/log/**");
+        postDto.setSecurityUserName("dfgdfgdfgdff");
+        postDto.setSecurityUserPwd("dfgdfgdfgdf");
+        postDto.setServerApiKey("65b8ad7d-2458-4bca-ba84-2171888a53f7");
+        postDto.setServerConnectionTimeout(Long.valueOf(60000));
+        postDto.setServerHealcheckEndpoint("dfgdfgdfgdf");
+        postDto.setServerHealthThreshold("5368709120");
+        postDto.setServerLogEnableEncrypt(true);
+        postDto.setServerLogEncryptionKey("dfgdfgdfgdf");
+        postDto.setServerLogMaxHistory(Long.valueOf(7));
+        postDto.setServerLogPath("/opt/api_gateway/logs");
+        postDto.setServerLogPattern("%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %replace(%caller{1}){'\t|Caller.{1}0|\r\n', ''} %clr(:){faint} %m%n");
+        postDto.setServerLogTotalSize(Long.valueOf(92160));
+        postDto.setServerMessageEndpoint("dfgdfgdfgdf");
+        postDto.setServerPort("8092");
+        postDto.setServerRequestTimeout(Long.valueOf(60000));
+        postDto.setServerRetryTimes(Long.valueOf(3));
+        postDto.setServerRoutesMeta("https://geaaux-pp-8093.globalewalletalliance.com");
+        postDto.setServerRoutesMth("https://geamain-pp-2046.globalewalletalliance.com");
+        postDto.setServerRoutesSr("https://geamain-pp-8098.globalewalletalliance.com");
+        postDto.setServerSecretKey("1654b1ad-50b8-4511-b791-006b8ffc4220");
+        postDto.setServerZipCompressionLevel(Long.valueOf(5));
+        postDto.setServerZipKey("dfgdfgdfgdf");
+        postDto.setStatus("ACTIVE");
+        postDto.setUpdateDate(new Date());
+        return postDto;
+    }
+
+    @Test(dataProvider="fileData")
+    public void testUploadMaterial(Map<String, String> data) throws IOException {
+        File pdfFile = new File(data.get("pathname"));
+        FileInputStream fileInputStream = new FileInputStream(pdfFile);
+        MultipartFile file = new MockMultipartFile(pdfFile.getName(), pdfFile.getName(), ContentType.APPLICATION_OCTET_STREAM.toString(), fileInputStream);
+
+        RestfulResponse<String> restfulResponse=new RestfulResponse<>();
+        if (file == null || file.isEmpty()) {
+            throw new BusinessException(SystemMsg.ErrorMsg.UPLOAD_FILE_EMPTY.getErrorCode());
+        }
+        if(file.getSize()>Long.valueOf(fileSize)){
+            throw new BusinessException(SystemMsg.ErrorMsg.UPLOAD_FILE_MULTIPART.getErrorCode());
+        }
+        String name=file.getOriginalFilename();
+        int one = name.lastIndexOf('.');
+        String type=name.substring((one + 1), name.length());
+        FileTypes[] s = FileTypes.values();
+        for(int i = 0; i< s.length; i++){
+            if(s[i].getValue().equalsIgnoreCase(type)){
+                restfulResponse=ewalletParticipantService.uploadMaterial(file);
+            }
+        }
+        Assert.assertNotNull(restfulResponse, "response");
+    }
+
+    @Test(dataProvider="fileData")
+    public void testLoadMaterialFile(Map<String, String> data) throws IOException {
+        HttpServletResponse response = getHttpServletResponse();
+        String filePath=data.get("filePath");
+        String fileName=data.get("fileName");
+        String code = "/";
+        String filePaths = materialDir + code +filePath;
+        String fileNames = null;
+        try (InputStream is = new FileInputStream(new File(filePaths))){
+            int one = filePaths.lastIndexOf('.');
+            String type=filePaths.substring((one + 1), filePaths.length());
+
+            String[] strs = filePaths.split("/");
+            if(StringUtils.isBlank(fileName)){
+                fileNames = strs[strs.length - 1];
+            }else{
+                fileNames = decodingFileName(fileName, "UTF-8");
+            }
+            if(type.equalsIgnoreCase(FileTypes.PDF.getValue())){
+                response.setContentType("application/pdf");
+                response.setHeader("Content-Disposition", "inline;fileName=" + fileNames);
+            }else{
+                response.setContentType("image/"+type);
+                response.setHeader("Content-Disposition", "attachment;fileName=" + fileNames);
+            }
+
+            response.setContentLength(is.available());
+            ServletOutputStream out = response.getOutputStream();
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            while ((read = is.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            out.flush();
+        } catch (Exception e) {
+            logger.error("loadMaterialFile",e);
+        }
+        RestfulResponse<String> restfulResponse=new RestfulResponse<>();
+        Assert.assertNotNull(restfulResponse, "response");
+    }
+
+    private static String decodingFileName(String fileName,String encoding){
+        try {
+            return new String(fileName.getBytes(encoding), "iso8859-1");
+        }catch (UnsupportedEncodingException e) {
+            return fileName;
+        }}
+
+    public HttpServletResponse getHttpServletResponse() {
+        return new HttpServletResponse() {
+            @Override
+            public void addCookie(Cookie cookie) {
+
+            }
+
+            @Override
+            public boolean containsHeader(String s) {
+                return false;
+            }
+
+            @Override
+            public String encodeURL(String s) {
+                return null;
+            }
+
+            @Override
+            public String encodeRedirectURL(String s) {
+                return null;
+            }
+
+            @Override
+            public String encodeUrl(String s) {
+                return null;
+            }
+
+            @Override
+            public String encodeRedirectUrl(String s) {
+                return null;
+            }
+
+            @Override
+            public void sendError(int i, String s) throws IOException {
+
+            }
+
+            @Override
+            public void sendError(int i) throws IOException {
+
+            }
+
+            @Override
+            public void sendRedirect(String s) throws IOException {
+
+            }
+
+            @Override
+            public void setDateHeader(String s, long l) {
+
+            }
+
+            @Override
+            public void addDateHeader(String s, long l) {
+
+            }
+
+            @Override
+            public void setHeader(String s, String s1) {
+
+            }
+
+            @Override
+            public void addHeader(String s, String s1) {
+
+            }
+
+            @Override
+            public void setIntHeader(String s, int i) {
+
+            }
+
+            @Override
+            public void addIntHeader(String s, int i) {
+
+            }
+
+            @Override
+            public void setStatus(int i) {
+
+            }
+
+            @Override
+            public void setStatus(int i, String s) {
+
+            }
+
+            @Override
+            public int getStatus() {
+                return 0;
+            }
+
+            @Override
+            public String getHeader(String s) {
+                return null;
+            }
+
+            @Override
+            public Collection<String> getHeaders(String s) {
+                return null;
+            }
+
+            @Override
+            public Collection<String> getHeaderNames() {
+                return null;
+            }
+
+            @Override
+            public String getCharacterEncoding() {
+                return null;
+            }
+
+            @Override
+            public String getContentType() {
+                return null;
+            }
+
+            @Override
+            public ServletOutputStream getOutputStream() throws IOException {
+                return null;
+            }
+
+            @Override
+            public PrintWriter getWriter() throws IOException {
+                return null;
+            }
+
+            @Override
+            public void setCharacterEncoding(String s) {
+
+            }
+
+            @Override
+            public void setContentLength(int i) {
+
+            }
+
+            @Override
+            public void setContentLengthLong(long l) {
+
+            }
+
+            @Override
+            public void setContentType(String s) {
+
+            }
+
+            @Override
+            public void setBufferSize(int i) {
+
+            }
+
+            @Override
+            public int getBufferSize() {
+                return 0;
+            }
+
+            @Override
+            public void flushBuffer() throws IOException {
+
+            }
+
+            @Override
+            public void resetBuffer() {
+
+            }
+
+            @Override
+            public boolean isCommitted() {
+                return false;
+            }
+
+            @Override
+            public void reset() {
+
+            }
+
+            @Override
+            public void setLocale(Locale locale) {
+
+            }
+
+            @Override
+            public Locale getLocale() {
+                return null;
+            }
+        };
     }
 }
