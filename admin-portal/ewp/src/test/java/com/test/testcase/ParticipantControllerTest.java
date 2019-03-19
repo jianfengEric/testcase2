@@ -32,6 +32,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -87,6 +88,24 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
     public Iterator<Object[]> fileData() throws IOException {
         String path=".testData."+currentEnvironment+"TestData.";
         return (Iterator<Object[]>)new CsvUtils("fileData.csv",path);
+    }
+
+    @DataProvider(name="serviceSettingDto")
+    public Iterator<Object[]> serviceSettingDtoData() throws IOException {
+        String path=".testData."+currentEnvironment+"TestData.";
+        return (Iterator<Object[]>)new CsvUtils("serviceSettingDto.csv",path);
+    }
+
+    @DataProvider(name="serviceAssignmentDto")
+    public Iterator<Object[]> serviceAssignmentDtoData() throws IOException {
+        String path=".testData."+currentEnvironment+"TestData.";
+        return (Iterator<Object[]>)new CsvUtils("serviceAssignmentDto.csv",path);
+    }
+
+    @DataProvider(name="updateCutOffTimeData")
+    public Iterator<Object[]> updateCutOffTimeData() throws IOException {
+        String path=".testData."+currentEnvironment+"TestData.";
+        return (Iterator<Object[]>)new CsvUtils("updateCutOffTimeData.csv",path);
     }
 
     @Test(dataProvider="pageData")
@@ -273,7 +292,7 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
     }
 
     @Test(dataProvider="statusChangeDtoData")
-    public void testUploadParticipantStatus(Map<String, String> data) throws IOException {
+    public void testUpdateParticipantStatus(Map<String, String> data) throws IOException {
         Map<String,Object> map = new HashMap<>();
         StatusChangeDto statusChangeDto=new StatusChangeDto();
         statusChangeDto=getStatusChangeDto(statusChangeDto,data);
@@ -293,7 +312,7 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
         return statusChangeDto;
     }
 
-    @Test(dataProvider="statusChangeDtoData")
+    @Test(description = "update-api-gateway-setting")
     public void testUpdateApiGatewaySetting(Map<String, String> data) throws IOException {
         ApiGatewaySettingDto postDto=new ApiGatewaySettingDto();
         postDto=getApiGatewaySettingDto(postDto,data);
@@ -409,6 +428,94 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
         RestfulResponse<String> restfulResponse=new RestfulResponse<>();
         Assert.assertNotNull(restfulResponse, "response");
     }
+
+    @Test(dataProvider="fullCompanyInformationData")
+    public void testUpdateFullCompanyInformation(Map<String, String> data) throws IOException {
+        FullCompanyInformationDto postDto=new FullCompanyInformationDto();
+        postDto=getPostDtoData(postDto,data);
+        RestfulResponse<String> restfulResponse=ewalletParticipantService.updateFullCompanyInformation(postDto);
+        Assert.assertNotNull(restfulResponse, "response");
+    }
+
+    @Test(dataProvider="serviceSettingDto")
+    public void testUpdateServiceSetting(Map<String, String> data) throws IOException {
+        ServiceSettingRequestDto serviceSettingDto=new ServiceSettingRequestDto();
+        serviceSettingDto=getServiceSettingDto(serviceSettingDto,data);
+        RestfulResponse<String> restfulResponse=ewalletParticipantService.updateServiceSetting(serviceSettingDto);
+        Assert.assertNotNull(restfulResponse, "response");
+    }
+
+    @Test(dataProvider="serviceAssignmentDto")
+    public void testUpdateServiceAssignment(Map<String, String> data) throws IOException {
+        ServiceAssignmentDto serviceAssignmentDto=new ServiceAssignmentDto();
+        serviceAssignmentDto=getServiceAssignmentDto(serviceAssignmentDto,data);
+        RestfulResponse<String> restfulResponse=ewalletParticipantService.updateServiceAssignment(serviceAssignmentDto);;
+        Assert.assertNotNull(restfulResponse, "response");
+    }
+
+    @Test(dataProvider="updateCutOffTimeData")
+    public void testUpdateCutOffTime(Map<String, String> data) throws IOException {
+        RestfulResponse<String> restfulResponse=ewalletParticipantService.updateCutOffTime(data.get("participantId"), data.get("cutOffTime"),Instance.valueOf(data.get("instance")),data.get("requestRemark"));
+        Assert.assertNotNull(restfulResponse, "response");
+    }
+
+    private ServiceAssignmentDto getServiceAssignmentDto(ServiceAssignmentDto serviceAssignmentDto, Map<String, String> data) {
+        serviceAssignmentDto.setInstance(data.get("instance"));
+        serviceAssignmentDto.setParticipantId(data.get("participantId"));
+        serviceAssignmentDto.setRequestRemark(data.get("requestRemark"));
+        List<MoneyPoolDto> moneyPoolDtoList=new ArrayList<>();
+        MoneyPoolDto moneyPoolDto=new MoneyPoolDto();
+        moneyPoolDto.setAlertLevel("11");
+        moneyPoolDto.setCurrency("USD");
+        moneyPoolDto.setGeaMoneyPoolRefId("CHNA008-USD01");
+        moneyPoolDto.setStatus("ACTIVE");
+        List<ServiceSettingDto> serviceSettingDtoList=new ArrayList<>();
+        ServiceSettingDto settingDto=new ServiceSettingDto();
+        settingDto.setEwpServiceId("1");
+        settingDto.setName("Transfer-Out Bank Transfer (T + 1)");
+        settingDto.setServiceCode("GR_BANK_TRANSFER");
+        settingDto.setServiceId("1");
+        settingDto.setServiceStatus("ACTIVE");
+        serviceSettingDtoList.add(settingDto);
+        moneyPoolDto.setServiceSettingDtoList(serviceSettingDtoList);
+        moneyPoolDtoList.add(moneyPoolDto);
+        serviceAssignmentDto.setMoneyPoolDtoList(moneyPoolDtoList);
+        return serviceAssignmentDto;
+    }
+
+
+    private ServiceSettingRequestDto getServiceSettingDto(ServiceSettingRequestDto serviceSettingDto, Map<String, String> data) {
+        serviceSettingDto.setInstance(data.get("instance"));
+        serviceSettingDto.setParticipantId(data.get("participantId"));
+        serviceSettingDto.setRequestRemark(data.get("hjkhjk"));
+        List<ServiceSettingDto> serviceSettingDtoList=new ArrayList<>();
+        ServiceSettingDto settingDto=new ServiceSettingDto();
+        settingDto.setEwpServiceId("68");
+        settingDto.setMarkup(new BigDecimal("3"));
+        settingDto.setName("Transfer-Out Bank Transfer (T + 1)");
+        settingDto.setServiceCode("GR_BANK_TRANSFER");
+        settingDto.setServiceId("1");
+        settingDto.setServiceStatus("ACTIVE");
+        settingDto.setStatus("ACTIVE");
+        List<ServiceFromCurrencyDto> fromCurrencyDto=new ArrayList<>();
+        ServiceFromCurrencyDto serviceFromCurrencyDto=new ServiceFromCurrencyDto();
+        serviceFromCurrencyDto.setCurrency("USD");
+        List<ServiceToCurrencyDto> toCurrencyDto=new ArrayList<>();
+        ServiceToCurrencyDto serviceToCurrencyDto=new ServiceToCurrencyDto();
+        serviceToCurrencyDto.setAdminFee(new BigDecimal("1"));
+        serviceToCurrencyDto.setCancelAdminFee(new BigDecimal("1"));
+        serviceToCurrencyDto.setChangeNameAdminFee(new BigDecimal("1"));
+        serviceToCurrencyDto.setCurrency("CAD");
+        serviceToCurrencyDto.setEnable(true);
+        toCurrencyDto.add(serviceToCurrencyDto);
+        serviceFromCurrencyDto.setToCurrencyDto(toCurrencyDto);
+        fromCurrencyDto.add(serviceFromCurrencyDto);
+        settingDto.setFromCurrencyDto(fromCurrencyDto);
+        serviceSettingDtoList.add(settingDto);
+        serviceSettingDto.setServiceSettingDtoList(serviceSettingDtoList);
+        return serviceSettingDto;
+    }
+
 
     private static String decodingFileName(String fileName,String encoding){
         try {
