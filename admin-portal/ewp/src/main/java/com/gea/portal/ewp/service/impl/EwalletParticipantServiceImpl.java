@@ -301,9 +301,9 @@ public class EwalletParticipantServiceImpl implements EwalletParticipantService 
         /*if(hasPending(ewalletParticipant.getGeaRefId(), instance,null)){
             throw new BusinessException(SystemMsg.EwpErrorMsg.HAS_PENDING_FOR_APPROVAL.getErrorCode());
         }*/
-        if(mpCallerService.callHasPending(ewalletParticipant.getGeaRefId(), instance,null).getData()){
+        /*if(mpCallerService.callHasPending(ewalletParticipant.getGeaRefId(), instance,null).getData()){
             throw new BusinessException(SystemMsg.MpErrorMsg.HAS_PENDING_FOR_APPROVAL.getErrorCode());
-        }
+        }*/
 
         EwpGatewayConfig ewpGatewayConfig = new EwpGatewayConfig();
         BeanUtils.copyProperties(postDto, ewpGatewayConfig, new String[]{"id"});
@@ -722,9 +722,9 @@ public class EwalletParticipantServiceImpl implements EwalletParticipantService 
         if(instance==Instance.PROD && !dpyCallerService.callIsDeploy(ewalletParticipant.getGeaRefId(), instance).getData()){
         	throw new BusinessException(SystemMsg.EwpErrorMsg.NO_API_GATEWAY.getErrorCode());
         }
-        if(mpCallerService.callHasPending(ewalletParticipant.getGeaRefId(), instance,null).getData()){
+        /*if(mpCallerService.callHasPending(ewalletParticipant.getGeaRefId(), instance,null).getData()){
             throw new BusinessException(SystemMsg.MpErrorMsg.HAS_PENDING_FOR_APPROVAL.getErrorCode());
-        }
+        }*/
 
         Date date = new Date();
         String accountId = userService.getLoginAccountId();
@@ -765,9 +765,9 @@ public class EwalletParticipantServiceImpl implements EwalletParticipantService 
         if(instance==Instance.PROD && !dpyCallerService.callIsDeploy(ewalletParticipant.getGeaRefId(), instance).getData()){
         	throw new BusinessException(SystemMsg.EwpErrorMsg.NO_API_GATEWAY.getErrorCode());
         }
-        if(mpCallerService.callHasPending(ewalletParticipant.getGeaRefId(), instance,null).getData()){
+        /*if(mpCallerService.callHasPending(ewalletParticipant.getGeaRefId(), instance,null).getData()){
             throw new BusinessException(SystemMsg.MpErrorMsg.HAS_PENDING_FOR_APPROVAL.getErrorCode());
-        }
+        }*/
 
         List<EwpCompanyForm> companyFormList = ewalletParticipant.getEwpCompanyForms();
 
@@ -946,9 +946,9 @@ public class EwalletParticipantServiceImpl implements EwalletParticipantService 
         if(instance==Instance.PROD && !dpyCallerService.callIsDeploy(ewalletParticipant.getGeaRefId(), instance).getData()){
         	throw new BusinessException(SystemMsg.EwpErrorMsg.NO_API_GATEWAY.getErrorCode());
         }
-        if(mpCallerService.callHasPending(ewalletParticipant.getGeaRefId(), instance,null).getData()){
+        /*if(mpCallerService.callHasPending(ewalletParticipant.getGeaRefId(), instance,null).getData()){
             throw new BusinessException(SystemMsg.MpErrorMsg.HAS_PENDING_FOR_APPROVAL.getErrorCode());
-        }
+        }*/
         List<BaseServiceDto> list = srvCallerService.getAllService();
         if(CollectionUtils.isEmpty(list)){
             throw new BusinessException(SystemMsg.ServerErrorMsg.SERVER_ERROR.getErrorCode());
@@ -1055,9 +1055,9 @@ public class EwalletParticipantServiceImpl implements EwalletParticipantService 
         if(instance==Instance.PROD && !dpyCallerService.callIsDeploy(ewalletParticipant.getGeaRefId(), instance).getData()){
         	throw new BusinessException(SystemMsg.EwpErrorMsg.NO_API_GATEWAY.getErrorCode());
         }
-        if(mpCallerService.callHasPending(ewalletParticipant.getGeaRefId(), instance,null).getData()){
+        /*if(mpCallerService.callHasPending(ewalletParticipant.getGeaRefId(), instance,null).getData()){
             throw new BusinessException(SystemMsg.MpErrorMsg.HAS_PENDING_FOR_APPROVAL.getErrorCode());
-        }
+        }*/
         for(MoneyPoolDto item : postDto.getMoneyPoolDtoList()){
         	Map<String, Long> tempMap = item.getServiceSettingDtoList().stream().collect(Collectors.groupingBy(ServiceSettingDto::getServiceId,Collectors.counting()));
         	if(tempMap.entrySet().stream().anyMatch(i -> i.getValue()>1L)){
@@ -1459,9 +1459,9 @@ public class EwalletParticipantServiceImpl implements EwalletParticipantService 
         if(instance==Instance.PROD && !dpyCallerService.callIsDeploy(ewalletParticipant.getGeaRefId(), instance).getData()){
         	throw new BusinessException(SystemMsg.EwpErrorMsg.NO_API_GATEWAY.getErrorCode());
         }
-        if(mpCallerService.callHasPending(ewalletParticipant.getGeaRefId(), Instance.PRE_PROD,null).getData()){
+        /*if(mpCallerService.callHasPending(ewalletParticipant.getGeaRefId(), Instance.PRE_PROD,null).getData()){
             throw new BusinessException(SystemMsg.MpErrorMsg.HAS_PENDING_FOR_APPROVAL.getErrorCode());
-        }
+        }*/
         // Modify it to ACTIVE Full information is required. 
         if(statusChangeDto.getToStatus().equals("ACTIVE")){
         	Map<ApprovalType, Boolean> comMap = this.isCompleteData(ewalletParticipant.getId(), instance, null);

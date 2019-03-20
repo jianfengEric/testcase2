@@ -466,9 +466,9 @@ public class MoneyPoolServiceImpl implements MoneyPoolService {
         if(StringUtils.isBlank(geaParticipantRefId)){
             throw new BusinessException(SystemMsg.ErrorMsg.CAN_NOT_BE_EMPTY.getErrorCode(), new String[]{"geaParticipantRefId"});
         }
-        /*if(this.hasPending(geaParticipantRefId, Instance.PRE_PROD, null)){
+        if(this.hasPending(geaParticipantRefId, Instance.PRE_PROD, null)){
             throw new BusinessException(SystemMsg.EwpErrorMsg.HAS_PENDING_FOR_APPROVAL.getErrorCode());
-        }*/
+        }
 
         Map<String,String> mpMapping = new HashMap<>();  // old and new mp data  gea id mapping 
         List<EwpMoneyPool> srcMpList = ewpMoneyPoolRepository.findByGeaParticipantRefId(geaParticipantRefId, Instance.PRE_PROD);
