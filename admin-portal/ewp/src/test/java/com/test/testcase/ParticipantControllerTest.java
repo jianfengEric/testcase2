@@ -143,64 +143,6 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
         Assert.assertNotNull(restResponse, "response");
     }
 
-    private FullCompanyInformationDto getPostDtoData(FullCompanyInformationDto postDto, Map<String, String> data) {
-        postDto.setParticipantId(data.get("participantId"));
-        postDto.setRegistrationDate(data.get("registrationDate"));
-        postDto.setAddress(data.get("address"));
-        postDto.setCountry(data.get("country"));
-        postDto.setFullCompanyName(data.get("fullCompanyName"));
-        postDto.setNotificationEmail(data.get("notificationEmail"));
-        postDto.setParticipantName(data.get("participantName"));
-        postDto.setRequestRemark(data.get("requestRemark"));
-        postDto.setRegistrationNo(data.get("registrationNo"));
-        postDto.setCurrentEnvir("PRE_PROD");
-        //
-        List<DisputeContactDto> disputeContactDtoList=new ArrayList<>();
-        DisputeContactDto disputeContactDto=new DisputeContactDto();
-        disputeContactDto.setRoleName("testnum5");
-        disputeContactDto.setPhoneOffice("13214236554");
-        disputeContactDto.setPhoneMobile("13214236554");
-        disputeContactDto.setNameEn("testnum5");
-        disputeContactDto.setMobileSms(true);
-        disputeContactDto.setEmail("testnum5@qq.com");
-        disputeContactDto.setDepartmentName("testnum5");
-        disputeContactDtoList.add(disputeContactDto);
-        postDto.setDisputeContactDto(disputeContactDtoList);
-        //
-        KeyPersonInformationDto keyPersonInformationDto=new KeyPersonInformationDto();
-        keyPersonInformationDto.setDepartment("testnum5");
-        keyPersonInformationDto.setDirectLine("13214236554");
-        keyPersonInformationDto.setEmail("testnum5@qq.com");
-        keyPersonInformationDto.setMobileNumber("13214236554");
-        keyPersonInformationDto.setName("testnum5");
-        keyPersonInformationDto.setReceiveSms(true);
-        keyPersonInformationDto.setRole("testnum5");
-        List<KeyPersonInformationDto> keyPersonInformationDtoList=new ArrayList<>();
-        keyPersonInformationDtoList.add(keyPersonInformationDto);
-        postDto.setKeyPersonInformationDto(keyPersonInformationDtoList);
-        //
-        MaterialDto materialDto=new MaterialDto();
-        materialDto.setFilePath("46160833_e5a7_4b58_8018_3224075f7fcf.png");
-        materialDto.setMaterialFilename("u=415293130 - 副本.png");
-        postDto.setMaterialDto(materialDto);
-        //
-        OwnerDetailsDto ownerDetailsDto=new OwnerDetailsDto();
-        ownerDetailsDto.setDirectLine("13214236554");
-        ownerDetailsDto.setEmail("testnum5@qq.com");
-        ownerDetailsDto.setMobileNumber("13214236554");
-        MaterialDto materialDto1=new MaterialDto();
-        materialDto1.setFilePath("464fcc91_7244_4cf5_9171_070f6068fea7.png");
-        materialDto1.setMaterialFilename("u=415293130 - 副本.png");
-        ownerDetailsDto.setMaterialDto(materialDto1);
-        ownerDetailsDto.setName("testnum5");
-        ownerDetailsDto.setRole("testnum5");
-        List<OwnerDetailsDto> ownerDetailsDtoList=new ArrayList<>();
-        ownerDetailsDtoList.add(ownerDetailsDto);
-        postDto.setOwnerDetailsDto(ownerDetailsDtoList);
-        return postDto;
-    }
-
-
     @Test(dataProvider="pageData")
     public void testGetServiceAssignment(Map<String, String> data) throws IOException {
         String instance=data.get("instance");
@@ -321,47 +263,19 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
         Assert.assertNotNull(response, "response");
     }
 
-    private ApiGatewaySettingDto getApiGatewaySettingDto(ApiGatewaySettingDto postDto) {
-        postDto.setApiGatewayUrl("dfgdfgdfgdf");
-        postDto.setCreateBy("402881616975b5b3016994113cdb0007");
-        postDto.setCreateDate(new Date());
-        postDto.setInstance("PRE_PROD");
-        postDto.setEndpointsHealthSensitive(true);
-        postDto.setEndpointsInfoSensitive(true);
-        postDto.setEndpointsRestartEnable(true);
-        postDto.setId(Long.valueOf(1));
-        postDto.setMgtContextPath("/healthcheck");
-        postDto.setMgtHealthRefreshEnable(true);
-        postDto.setMgtSecurityEnable(true);
-        postDto.setParticipantId(Long.valueOf(1));
-        postDto.setRequestRemark("dfgdfg");
-        postDto.setSecurityBasicEnable(true);
-        postDto.setSecurityBasicPath("/healthcheck/**,/log/**");
-        postDto.setSecurityUserName("dfgdfgdfgdff");
-        postDto.setSecurityUserPwd("dfgdfgdfgdf");
-        postDto.setServerApiKey("65b8ad7d-2458-4bca-ba84-2171888a53f7");
-        postDto.setServerConnectionTimeout(Long.valueOf(60000));
-        postDto.setServerHealcheckEndpoint("dfgdfgdfgdf");
-        postDto.setServerHealthThreshold("5368709120");
-        postDto.setServerLogEnableEncrypt(true);
-        postDto.setServerLogEncryptionKey("dfgdfgdfgdf");
-        postDto.setServerLogMaxHistory(Long.valueOf(7));
-        postDto.setServerLogPath("/opt/api_gateway/logs");
-        postDto.setServerLogPattern("%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %replace(%caller{1}){'\t|Caller.{1}0|\r\n', ''} %clr(:){faint} %m%n");
-        postDto.setServerLogTotalSize(Long.valueOf(92160));
-        postDto.setServerMessageEndpoint("dfgdfgdfgdf");
-        postDto.setServerPort("8092");
-        postDto.setServerRequestTimeout(Long.valueOf(60000));
-        postDto.setServerRetryTimes(Long.valueOf(3));
-        postDto.setServerRoutesMeta("https://geaaux-pp-8093.globalewalletalliance.com");
-        postDto.setServerRoutesMth("https://geamain-pp-2046.globalewalletalliance.com");
-        postDto.setServerRoutesSr("https://geamain-pp-8098.globalewalletalliance.com");
-        postDto.setServerSecretKey("1654b1ad-50b8-4511-b791-006b8ffc4220");
-        postDto.setServerZipCompressionLevel(Long.valueOf(5));
-        postDto.setServerZipKey("dfgdfgdfgdf");
-        postDto.setStatus("ACTIVE");
-        postDto.setUpdateDate(new Date());
-        return postDto;
+    @Test(dataProvider="pageData")
+    public void testDeployToProduction(Map<String, String> data) throws IOException {
+        String token=data.get("token");
+        UserDetails userDetails = userService.getUserDetailByToken(token);
+        if(null!=userDetails){
+            AnaPrincipalAuthenticationToken authentication = new AnaPrincipalAuthenticationToken(userDetails,token,"");
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+
+        ApiGatewaySettingDto postDto=new ApiGatewaySettingDto();
+        postDto=getApiGatewaySettingDto(postDto);
+        RestfulResponse<String> response=ewalletParticipantService.deployToProduction(postDto);
+        Assert.assertNotNull(response, "response");
     }
 
     @Test(dataProvider="fileData")
@@ -484,6 +398,62 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
         return serviceAssignmentDto;
     }
 
+    private FullCompanyInformationDto getPostDtoData(FullCompanyInformationDto postDto, Map<String, String> data) {
+        postDto.setParticipantId(data.get("participantId"));
+        postDto.setRegistrationDate(data.get("registrationDate"));
+        postDto.setAddress(data.get("address"));
+        postDto.setCountry(data.get("country"));
+        postDto.setFullCompanyName(data.get("fullCompanyName"));
+        postDto.setNotificationEmail(data.get("notificationEmail"));
+        postDto.setParticipantName(data.get("participantName"));
+        postDto.setRequestRemark(data.get("requestRemark"));
+        postDto.setRegistrationNo(data.get("registrationNo"));
+        postDto.setCurrentEnvir("PRE_PROD");
+        //
+        List<DisputeContactDto> disputeContactDtoList=new ArrayList<>();
+        DisputeContactDto disputeContactDto=new DisputeContactDto();
+        disputeContactDto.setRoleName("testnum5");
+        disputeContactDto.setPhoneOffice("13214236554");
+        disputeContactDto.setPhoneMobile("13214236554");
+        disputeContactDto.setNameEn("testnum5");
+        disputeContactDto.setMobileSms(true);
+        disputeContactDto.setEmail("testnum5@qq.com");
+        disputeContactDto.setDepartmentName("testnum5");
+        disputeContactDtoList.add(disputeContactDto);
+        postDto.setDisputeContactDto(disputeContactDtoList);
+        //
+        KeyPersonInformationDto keyPersonInformationDto=new KeyPersonInformationDto();
+        keyPersonInformationDto.setDepartment("testnum5");
+        keyPersonInformationDto.setDirectLine("13214236554");
+        keyPersonInformationDto.setEmail("testnum5@qq.com");
+        keyPersonInformationDto.setMobileNumber("13214236554");
+        keyPersonInformationDto.setName("testnum5");
+        keyPersonInformationDto.setReceiveSms(true);
+        keyPersonInformationDto.setRole("testnum5");
+        List<KeyPersonInformationDto> keyPersonInformationDtoList=new ArrayList<>();
+        keyPersonInformationDtoList.add(keyPersonInformationDto);
+        postDto.setKeyPersonInformationDto(keyPersonInformationDtoList);
+        //
+        MaterialDto materialDto=new MaterialDto();
+        materialDto.setFilePath("46160833_e5a7_4b58_8018_3224075f7fcf.png");
+        materialDto.setMaterialFilename("u=415293130 - 副本.png");
+        postDto.setMaterialDto(materialDto);
+        //
+        OwnerDetailsDto ownerDetailsDto=new OwnerDetailsDto();
+        ownerDetailsDto.setDirectLine("13214236554");
+        ownerDetailsDto.setEmail("testnum5@qq.com");
+        ownerDetailsDto.setMobileNumber("13214236554");
+        MaterialDto materialDto1=new MaterialDto();
+        materialDto1.setFilePath("464fcc91_7244_4cf5_9171_070f6068fea7.png");
+        materialDto1.setMaterialFilename("u=415293130 - 副本.png");
+        ownerDetailsDto.setMaterialDto(materialDto1);
+        ownerDetailsDto.setName("testnum5");
+        ownerDetailsDto.setRole("testnum5");
+        List<OwnerDetailsDto> ownerDetailsDtoList=new ArrayList<>();
+        ownerDetailsDtoList.add(ownerDetailsDto);
+        postDto.setOwnerDetailsDto(ownerDetailsDtoList);
+        return postDto;
+    }
 
     private ServiceSettingRequestDto getServiceSettingDto(ServiceSettingRequestDto serviceSettingDto, Map<String, String> data) {
         serviceSettingDto.setInstance(data.get("instance"));
@@ -517,6 +487,48 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
         return serviceSettingDto;
     }
 
+    private ApiGatewaySettingDto getApiGatewaySettingDto(ApiGatewaySettingDto postDto) {
+        postDto.setApiGatewayUrl("dfgdfgdfgdf");
+        postDto.setCreateBy("402881616975b5b3016994113cdb0007");
+        postDto.setCreateDate(new Date());
+        postDto.setInstance("PRE_PROD");
+        postDto.setEndpointsHealthSensitive(true);
+        postDto.setEndpointsInfoSensitive(true);
+        postDto.setEndpointsRestartEnable(true);
+        postDto.setId(Long.valueOf(1));
+        postDto.setMgtContextPath("/healthcheck");
+        postDto.setMgtHealthRefreshEnable(true);
+        postDto.setMgtSecurityEnable(true);
+        postDto.setParticipantId(Long.valueOf(1));
+        postDto.setRequestRemark("dfgdfg");
+        postDto.setSecurityBasicEnable(true);
+        postDto.setSecurityBasicPath("/healthcheck/**,/log/**");
+        postDto.setSecurityUserName("dfgdfgdfgdff");
+        postDto.setSecurityUserPwd("dfgdfgdfgdf");
+        postDto.setServerApiKey("65b8ad7d-2458-4bca-ba84-2171888a53f7");
+        postDto.setServerConnectionTimeout(Long.valueOf(60000));
+        postDto.setServerHealcheckEndpoint("dfgdfgdfgdf");
+        postDto.setServerHealthThreshold("5368709120");
+        postDto.setServerLogEnableEncrypt(true);
+        postDto.setServerLogEncryptionKey("dfgdfgdfgdf");
+        postDto.setServerLogMaxHistory(Long.valueOf(7));
+        postDto.setServerLogPath("/opt/api_gateway/logs");
+        postDto.setServerLogPattern("%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %replace(%caller{1}){'\t|Caller.{1}0|\r\n', ''} %clr(:){faint} %m%n");
+        postDto.setServerLogTotalSize(Long.valueOf(92160));
+        postDto.setServerMessageEndpoint("dfgdfgdfgdf");
+        postDto.setServerPort("8092");
+        postDto.setServerRequestTimeout(Long.valueOf(60000));
+        postDto.setServerRetryTimes(Long.valueOf(3));
+        postDto.setServerRoutesMeta("https://geaaux-pp-8093.globalewalletalliance.com");
+        postDto.setServerRoutesMth("https://geamain-pp-2046.globalewalletalliance.com");
+        postDto.setServerRoutesSr("https://geamain-pp-8098.globalewalletalliance.com");
+        postDto.setServerSecretKey("1654b1ad-50b8-4511-b791-006b8ffc4220");
+        postDto.setServerZipCompressionLevel(Long.valueOf(5));
+        postDto.setServerZipKey("dfgdfgdfgdf");
+        postDto.setStatus("ACTIVE");
+        postDto.setUpdateDate(new Date());
+        return postDto;
+    }
 
     private static String decodingFileName(String fileName,String encoding){
         try {

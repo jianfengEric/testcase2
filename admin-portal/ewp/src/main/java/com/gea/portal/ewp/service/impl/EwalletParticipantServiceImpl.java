@@ -1260,9 +1260,9 @@ public class EwalletParticipantServiceImpl implements EwalletParticipantService 
         if(null == ewalletParticipant){
             throw new BusinessException(SystemMsg.ErrorMsg.IS_NULL.getErrorCode(), new String[]{"EwalletParticipant"});
         }
-        if(!this.isNeedClone(ewalletParticipant.getGeaRefId())){
+        /*if(!this.isNeedClone(ewalletParticipant.getGeaRefId())){
             throw new BusinessException(SystemMsg.EwpErrorMsg.HAS_PENDING_FOR_APPROVAL.getErrorCode());
-        }
+        }*/
         String accountId = userService.getLoginAccountId();
         Date createDate = new Date();
         //  copy ewp_company_form
