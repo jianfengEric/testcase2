@@ -21,7 +21,7 @@ public class CountryControllerTest extends AbstractTestNGSpringContextTests {
     private CountryService countryService;
 
     @Test(description = "find-all-country")
-    public void testGenApiGatewayKey() throws IOException {
+    public void testFindAllCountry() throws IOException {
         List<CountryDto> list = countryService.findAll();
         RestfulResponse.ofData(list);
         Assert.assertNotNull(list, "response");
