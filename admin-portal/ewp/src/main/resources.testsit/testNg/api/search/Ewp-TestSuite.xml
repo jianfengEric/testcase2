@@ -9,6 +9,7 @@
             <class name="com.test.testcase.ParticipantControllerTest"/>
             <class name="com.test.testcase.CountryControllerTest"/>
             <class name="com.test.testcase.DictionaryControllerTest"/>
+            <class name="com.test.testcase.RemoteControllerTest"/>
         </classes>
     </test>
 

@@ -183,7 +183,7 @@
 
     </dependencies>
 
-    <!-- <profiles>
+     <profiles>
         <profile>
             <id>local</id>
             <activation>
@@ -236,7 +236,28 @@
                 <skipunittest>false</skipunittest>
             </properties>
         </profile>
-    </profiles> -->
+
+         <profile>
+             <id>testdev</id>
+             <build>
+                 <resources>
+                     <resource>
+                         <directory>src/main/resources.testdev</directory>
+                     </resource>
+                 </resources>
+             </build>
+         </profile>
+         <profile>
+             <id>testsit</id>
+             <build>
+                 <resources>
+                     <resource>
+                         <directory>src/main/resources.testsit</directory>
+                     </resource>
+                 </resources>
+             </build>
+         </profile>
+    </profiles>
 
     <build>
         <finalName>srv</finalName>
@@ -336,7 +357,18 @@
                     </execution>
                 </executions>
             </plugin>-->
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
+                <configuration>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                    <encoding>UTF-8</encoding>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${project.basedir}/target/classes/testNg/api/APICollection-TestSuite.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

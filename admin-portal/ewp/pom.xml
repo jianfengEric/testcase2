@@ -287,30 +287,6 @@
          </profile>
     </profiles>
 
-    <!--<profiles>
-        <profile>
-            <id>testdev</id>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources.testdev</directory>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-        <profile>
-            <id>testsit</id>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources.testsit</directory>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-    </profiles>
--->
-
     <build>
         <finalName>ewp</finalName>
         <!-- <filters>
@@ -400,7 +376,6 @@
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                     <encoding>UTF-8</encoding>
                     <suiteXmlFiles>
-                        <!--<suiteXmlFile>${project.basedir}/target/classes/testNg/${xmlFileName}</suiteXmlFile>-->
                         <suiteXmlFile>${project.basedir}/target/classes/testNg/api/APICollection-TestSuite.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
