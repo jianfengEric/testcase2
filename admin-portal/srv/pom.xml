@@ -237,26 +237,6 @@
             </properties>
         </profile>
 
-         <profile>
-             <id>testdev</id>
-             <build>
-                 <resources>
-                     <resource>
-                         <directory>src/main/resources.testdev</directory>
-                     </resource>
-                 </resources>
-             </build>
-         </profile>
-         <profile>
-             <id>testsit</id>
-             <build>
-                 <resources>
-                     <resource>
-                         <directory>src/main/resources.testsit</directory>
-                     </resource>
-                 </resources>
-             </build>
-         </profile>
     </profiles>
 
     <build>
