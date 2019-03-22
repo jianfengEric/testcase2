@@ -263,7 +263,7 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
         Assert.assertNotNull(response, "response");
     }
 
-    @Test(dataProvider="pageData")
+    /*@Test(dataProvider="pageData")
     public void testDeployToProduction(Map<String, String> data) throws IOException {
         String token=data.get("token");
         UserDetails userDetails = userService.getUserDetailByToken(token);
@@ -276,7 +276,7 @@ public class ParticipantControllerTest extends AbstractTestNGSpringContextTests 
         postDto=getApiGatewaySettingDto(postDto);
         RestfulResponse<String> response=ewalletParticipantService.deployToProduction(postDto);
         Assert.assertNotNull(response, "response");
-    }
+    }*/
 
     @Test(dataProvider="fileData")
     public void testUploadMaterial(Map<String, String> data) throws IOException {
