@@ -80,11 +80,11 @@ public class RequestApprovalServiceImpl implements RequestApprovalService{
             throw new BusinessException(SystemMsg.ErrorMsg.CAN_NOT_BE_EMPTY.getErrorCode(), new String[]{"ewalletParticipant or allNull"});
         }
 
-        /*if(CollectionUtils.isNotEmpty(ewalletParticipant.getRequestApproval())
+        if(CollectionUtils.isNotEmpty(ewalletParticipant.getRequestApproval())
                 && ewalletParticipant.getRequestApproval().stream().anyMatch(
                 		item -> item.getStatus().equals(RequestApprovalStatus.PENDING_FOR_APPROVAL) && item.getCurrentEnvir().equals(instance))){
             throw new BusinessException(SystemMsg.EwpErrorMsg.HAS_PENDING_FOR_APPROVAL.getErrorCode());
-        }*/
+        }
 
         RequestApproval requestApproval = new RequestApproval();
         requestApproval.setCreateDate(new Date());
@@ -114,9 +114,9 @@ public class RequestApprovalServiceImpl implements RequestApprovalService{
         if(requestApproval==null){
             throw new BusinessException(SystemMsg.ServerErrorMsg.SERVER_ERROR.getErrorCode());
         }
-        /*if(requestApproval.getStatus() != RequestApprovalStatus.PENDING_FOR_APPROVAL){
-        	throw new BusinessException(SystemMsg.ApvErrorMsg.HAS_BEEN_APPROVED.getErrorCode());
-        }*/
+        if(requestApproval.getStatus() != RequestApprovalStatus.PENDING_FOR_APPROVAL){
+            throw new BusinessException(SystemMsg.ApvErrorMsg.HAS_BEEN_APPROVED.getErrorCode());
+        }
 
         String accountId = getRequestAccountId(requestUserId);
         Date updateDate = new Date();
@@ -314,9 +314,9 @@ public class RequestApprovalServiceImpl implements RequestApprovalService{
         if(requestApproval==null){
             throw new BusinessException(SystemMsg.ServerErrorMsg.SERVER_ERROR.getErrorCode());
         }
-        /*if(!requestApproval.getStatus().equals(RequestApprovalStatus.PENDING_FOR_APPROVAL)){
+        if(!requestApproval.getStatus().equals(RequestApprovalStatus.PENDING_FOR_APPROVAL)){
             throw new BusinessException(SystemMsg.ApvErrorMsg.HAS_BEEN_APPROVED.getErrorCode());
-        }*/
+        }
 
         requestApproval.setStatus(RequestApprovalStatus.REJECT);
         requestApproval.setUpdateBy(getRequestAccountId(requestUserId));
